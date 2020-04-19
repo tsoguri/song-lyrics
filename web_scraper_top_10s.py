@@ -21,12 +21,18 @@ def group_genre(top_genre):
     elif findw(top_genre, 'pop'):
         return 'pop'
     elif findw(top_genre, 'soul'):
-        return 'soul'
+        return 'r&b'
+    elif findw(top_genre, 'r') and findw(top_genre, 'b'):
+        return 'r&b'
+    elif findw(top_genre, 'boy'):
+        return 'boy band'
     elif findw(top_genre, 'rap'):
         return 'rap'
     elif findw(top_genre, 'rock'):
         return 'rock'
     elif findw(top_genre, 'room'):
+        return 'house'
+    elif findw(top_genre, 'house'):
         return 'house'
     elif findw(top_genre, 'metropopolis'):
         return 'pop'
@@ -34,22 +40,28 @@ def group_genre(top_genre):
         return 'indie'
     elif findw(top_genre, 'singer'):
         return 'indie'
+    elif findw(top_genre, 'techno'):
+        return 'electronic'
     elif findw(top_genre, 'edm'):
-        return 'techno'
+        return 'electronic'
     elif findw(top_genre, 'complextro'):
-        return 'techno'
+        return 'electronic'
     elif findw(top_genre, 'electro'):
-        return 'techno'
+        return 'electronic'
     elif findw(top_genre, 'electropop'):
-        return 'techno'
+        return 'electronic'
     elif findw(top_genre, 'wave'):
         return 'alternative'
     elif findw(top_genre, 'brostep'):
-        return 'techno'
+        return 'electronic'
     elif findw(top_genre, 'dubstep'):
-        return 'techno'
+        return 'electronic'
+    elif findw(top_genre, 'dance'):
+        return 'pop'
+    elif findw(top_genre, 'latin'):
+        return 'latin'
     else:
-        return top_genre
+        return top_genre.strip()
 
 def infer_metrolyrics_url(title, artist):
     delimiter_re = r"(\(.*\))*\W"
@@ -101,3 +113,19 @@ print('Processing done! Saving data...')
 df = pd.DataFrame(lyrics_dataset)
 df.to_csv('lyrics_spotify.csv', encoding='utf-8')
 print('Done!')
+        
+
+# metro lyrics: title-lyrics-author, parts in parentheses omitted, all
+# lowercase, dashes between everything
+
+# URL = 'https://www.metrolyrics.com/hey-soul-sister-lyrics-train.html'
+# page = requests.get(URL)
+# print(page.text)
+
+# soup = BeautifulSoup(page.content, 'html.parser')
+# results_lyricbody = soup.find(id='lyrics-body')
+# print(results_lyricbody.prettify())
+# verses_iterable = results_lyricbody.find_all('p', class_='verse')
+# for verse in verses_iterable:
+#     print(verse.text.strip(), end='\n'*2)
+
