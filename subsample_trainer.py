@@ -159,17 +159,19 @@ class SGDSubsampleClassifier(SubsampleTrainer):
 
 
 class CNBSubsampleClassifier(SubsampleTrainer):
-    def __init__(self):
+    def __init__(self, alpha=1):
+        self.alpha = alpha
         self.type = ComplementNB
         
     def fit(self, X_train, y_train):
-        SubsampleTrainer.__init__(self, X_train.toarray().tolist(), y_train, ComplementNB)
+        SubsampleTrainer.__init__(self, X_train.toarray().tolist(), y_train, ComplementNB, self.alpha)
         SubsampleTrainer.fit(self, ComplementNB)
 
 class CNBTwoStepClassifier(ImbalancedTrainerInterface):
-    def __init__(self):
-        self.clf_yn = ComplementNB()
-        self.clf_n = ComplementNB()
+    def __init__(self, alpha=1):
+        self.alpha = alpha
+        self.clf_yn = ComplementNB(alpha=alpha)
+        self.clf_n = ComplementNB(alpha=alpha)
     
     def fit(self, X_train, y_train):
         X_train = X_train.toarray().tolist()
@@ -200,9 +202,10 @@ class CNBTwoStepClassifier(ImbalancedTrainerInterface):
         return acc
 
 class SGDTwoStepClassifier(ImbalancedTrainerInterface):
-    def __init__(self):
-        self.clf_yn = SGDClassifier()
-        self.clf_n = SGDClassifier()
+    def __init__(self, alpha=1):
+        self.alpha = alpha
+        self.clf_yn = SGDClassifier(alpha=alpha)
+        self.clf_n = SGDClassifier(alpha=alpha)
     
     def fit(self, X_train, y_train):
         X_train = X_train.toarray().tolist()
